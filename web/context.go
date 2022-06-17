@@ -116,6 +116,12 @@ func (c *Context) RequestType() string {
 	return c.RequestHeader("Content-Type")
 }
 func (c *Context) Binding(obj interface{}) error {
-	bind := binding.NewBing(c.Request.Method, c.RequestType())
+	bind := binding.NewBind(c.Request.Method, c.RequestType())
 	return bind.Bind(c.Request, obj)
+}
+func (c *Context) BindingJSON(obj interface{}) error {
+	return binding.NewBindType(binding.JSONBind).Bind(c.Request, obj)
+}
+func (c *Context) BindingXML(obj interface{}) error {
+	return binding.NewBindType(binding.XMLBind).Bind(c.Request, obj)
 }

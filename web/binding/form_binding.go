@@ -9,7 +9,7 @@ type formBinding struct {
 }
 
 func (formBinding) Bind(req *http.Request, obj interface{}) error {
-	return mapForm(req, reflect.ValueOf(obj), "form")
+	return paresForm(req, reflect.ValueOf(obj), "form")
 }
 
 func mapForm(req *http.Request, obj reflect.Value, tag string) error {
@@ -87,4 +87,11 @@ func setFieldValue(value reflect.Value, data string) error {
 	}
 
 	return nil
+}
+
+func paresForm(req *http.Request, obj reflect.Value, tag string) error {
+	if err := req.ParseForm(); err != nil {
+		return err
+	}
+	return mapForm(req, obj, "form")
 }
