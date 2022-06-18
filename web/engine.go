@@ -99,9 +99,6 @@ func (e *Engine) Use(handle ...Handle) {
 func (e *Engine) Static(roots, path string) {
 	h := e.route.static(roots, path)
 	e.Get(path+"/*file", h)
-	e.Get("/favicon.ico", func(c *Context) {
-		c.ico()
-	})
 }
 
 func (e *Engine) LoadHtmlGlob(pattern string) {

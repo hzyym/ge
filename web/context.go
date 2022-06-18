@@ -80,9 +80,6 @@ func (c *Context) Html(code int, name string, data interface{}) {
 func (c *Context) SetHeader(key, value string) {
 	c.Write.Header().Set(key, value)
 }
-func (c *Context) ico() {
-	c.File("./static/favicon.ico")
-}
 func (c *Context) File(path string) {
 	http.ServeFile(c.Write, c.Request, path)
 }
