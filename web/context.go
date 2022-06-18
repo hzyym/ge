@@ -65,6 +65,9 @@ func (c *Context) Abort() {
 	c.index = 90
 }
 func (c *Context) GetWriteStatus() int {
+	if c.status <= 0 {
+		return http.StatusOK
+	}
 	return c.status
 }
 func (c *Context) Html(code int, name string, data interface{}) {
@@ -124,4 +127,7 @@ func (c *Context) BindingJSON(obj interface{}) error {
 }
 func (c *Context) BindingXML(obj interface{}) error {
 	return binding.NewBindType(binding.XMLBind).Bind(c.Request, obj)
+}
+func (c *Context) PostForm(key string) string {
+	return c.Request.PostFormValue(key)
 }
